@@ -1,30 +1,37 @@
 
-simulationtimes=2
+#biofilm simulation times
 
-for(batch in c(2))
+
+simulationtimes=1
+
+for(batch in seq(1,simulationtimes,1)
 {
-  dir='/Users/yeyusong/Desktop/德国工作 project/Cell-matrix/results/movies_of_biofilm'
+
+  #set path
+  
+  dir='path'
   setwd(dir) 
   
   dir.create(paste0('S=',batch))
 
-  dirsave=paste0('/Users/yeyusong/Desktop/德国工作 project/Cell-matrix/results/movies_of_biofilm/',paste0('S=',batch))
+  dirsave=paste0('path',paste0('S=',batch))
   setwd(dirsave) 
 
-#set direction 
 
 
 
-#define parametersets
+
+#define boundary
+  
 size_matrix=100
-lattice_length=15
+lattice_length=15*1/0.65
 kbt=1
 
 
 realtime=0
 
 
-#calculating rates function
+#calculating production drift and rates function
 
 #cells
 doubletime=2
@@ -34,11 +41,11 @@ rateofdiv=1/(1*doubletimesec)*1
 rateofsecret=1/(1*doubletimesec)*1
 
 #agar
-rateofagardrift=3*10^(-5)*4*1/((lattice_length/size_matrix)^2)
+rateofagardrift=3*10^(-5)*4*1/((lattice_length/size_matrix)^2)/(0.65^2)
 #cell
-rateofcelldrift=5.625*10^(-7)*4*1/((lattice_length/size_matrix)^2)*0.4
+rateofcelldrift=5.625*10^(-7)*4*1/((lattice_length/size_matrix)^2)*0.4/(0.65^2)
 #matrix
-rateofmatrixdrift=5.625*10^(-7)*4*1/((lattice_length/size_matrix)^2)*2.5
+rateofmatrixdrift=5.625*10^(-7)*4*1/((lattice_length/size_matrix)^2)*2.5/(0.65^2)
 
 
 #fraction of rates
@@ -49,7 +56,7 @@ drift_cell_rate=rateofcelldrift/(rateofcelldrift+rateofmatrixdrift+rateofagardri
 drift_matrix_rate=rateofmatrixdrift/(rateofcelldrift+rateofmatrixdrift+rateofagardrift+rateofdiv+rateofsecret)
 drift_agar_rate=rateofagardrift/(rateofcelldrift+rateofmatrixdrift+rateofagardrift+rateofdiv+rateofsecret)
 
-
+#if need to let no agar drifting
 freeze_agar=1
 
 #basice physical steps
@@ -57,10 +64,9 @@ basictimestep=1/(rateofdiv+rateofsecret+rateofcelldrift+rateofmatrixdrift+rateof
 
 #cut the biofilm (hour)
 cutting_time=24
-
 ifcut=10000
 
-#probability of leaving cells
+#probability of leaving cells (phantom
 ifleftcells=0.0
 
 
@@ -97,7 +103,7 @@ cutline1y=25
 cutline2y=45
 cutline3y=65
 
-#biomasshisto
+#biomass
 edge=65
 biohigh=10
 drawingwidthL=5
@@ -109,7 +115,7 @@ intery=2
 IndianRed=rgb(255/255,106/255,106/255)
 RoyalBlue=rgb(65/255,105/255,225/255)
 
-#set death rate (fixed?)
+#set death rate 
 base_deathrate=1.1*5.5*0.000001*basictimestep*3600*1
 base_deathrate_2=5.5/2*0.000001*basictimestep*3600*1*2.1
 
@@ -121,17 +127,15 @@ max_agar=3
 
 #steps of recording
 moviestep_biofilm=10000
-totalsteps_biofilm=25000000
+totalsteps_biofilm=50000000
 
 
 total_physical_time=seq(1,totalsteps_biofilm/moviestep_biofilm,1)
 
 
-#show the cut
-#window_of_average=2
 
 
-#three weight parameters
+#weight parameters
 c_weight=0.1
 #c-c
 c1_weight=1
@@ -144,10 +148,6 @@ j_weight=1
 
 n1_weight=1.5
 n2_weight=1
-
-
-
-NAME='000000.pdf'
 
 
 total_cell=0
@@ -164,7 +164,8 @@ index_matrix_i=c()
 index_matrix_j=c()
 indexmatrix=0
 
-
+#initial
+  
 lattice_cell=matrix(0,nrow=size_matrix, ncol=size_matrix)
 lattice_cell_new=matrix(0,nrow=size_matrix, ncol=size_matrix)
 
@@ -202,7 +203,7 @@ for(cutsite in 1:length(coorxvec))
 
 
 
-#1 cell 2 matrix 3 deathcell
+#interaction 1 cell 2 matrix 3 deathcell
 coefficientmatrix_biofilm=matrix(0,nrow=3,ncol=3)
 coefficientmatrix_biofilm[1,1]=0
 coefficientmatrix_biofilm[1,2]=0.03
@@ -217,7 +218,7 @@ coefficientmatrix_biofilm[3,1]=0
 interaction_cell_death=0
 
 
-#initial biomass configuration
+#initial biomass configuration (drop)
 
 drop_dense=1
 
@@ -289,6 +290,7 @@ lattice_cell_new=lattice_cell
 #}
 lattice_matrix_new=lattice_matrix
 
+#draw drop
 pdf(file='drop.pdf',width=9,height=9)
 
 par(mar=c(1,1,1,1))
@@ -337,7 +339,8 @@ interval_of_radius=seq(0,size_matrix/2,size_matrix/2/points_of_radius)
 
 #simulation
 
-#simulation and create movie
+#simulation and generate movie data
+  
 Sys.time()
 successunmber_cell=sum(lattice_cell)
 successunmber_matrix=sum(lattice_matrix)
@@ -813,7 +816,7 @@ for(steps in 1:totalsteps_biofilm)
         
         #(accelerate)
         
-        for(repeatdrift in 1:(as.integer(max_agar*size_matrix*size_matrix/successunmber_cell)))
+        for(repeatdrift in 1:(round(max_agar*size_matrix*size_matrix/successunmber_cell)))
         {
           old_i=sample(1:(size_matrix),size=1)
           
@@ -1469,8 +1472,6 @@ if(cutting_time<floor(max(total_physical_time)))
 }
 
 
-
-# circle
 
 
 }
