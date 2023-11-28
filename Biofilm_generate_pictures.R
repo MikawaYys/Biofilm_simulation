@@ -3,7 +3,7 @@
 IndianRed=rgb(255/255,80/255,80/255)
 RoyalBlue=rgb(65/255,105/255,200/255)
 
-dirsave=paste0('/Users/yeyusong/Desktop/德国工作 project/Cell-matrix/pics/ana/S=1')
+dirsave=paste0('path/S=1')
 setwd(dirsave) 
 
 too=73
@@ -71,12 +71,12 @@ record_freq_of_diff=record_freq_of_diff_batch
 #cutting_matrix=cutting_matrix_batch
 #cutting_agar=cutting_agar_batch
 
-dir='/Users/yeyusong/Desktop/德国工作 project/Cell-matrix/pics/ana'
+dir='path'
 setwd(dir) 
 all_file=list.files()
 for(read in 2:5)
 {
-dirsave=paste0('/Users/yeyusong/Desktop/德国工作 project/Cell-matrix/pics/ana/',all_file[read])
+dirsave=paste0('path/',all_file[read])
 setwd(dirsave) 
 
 
@@ -170,7 +170,7 @@ Total_death_cell=as.matrix(Total_death_cell)
 
 #separate figs
 
-dir='/Users/yeyusong/Desktop/德国工作 project/Cell-matrix/pics/ana'
+dir='path'
 setwd(dir)
 
 movieperh=35
@@ -632,7 +632,7 @@ while (!is.null(dev.list()))  dev.off()
 
 #OD with crossover
 
-dirsave=paste0('/Users/yeyusong/Desktop/德国工作 project/Cell-matrix/pics/ana/S=1')
+dirsave=paste0('path/S=1')
 setwd(dirsave) 
 
 too=73
@@ -682,12 +682,12 @@ for(i in seq(startfrom,total_h,1))
 }
 
 
-dir='/Users/yeyusong/Desktop/德国工作 project/Cell-matrix/pics/ana'
+dir='path'
 setwd(dir) 
 all_file=list.files()
 for(read in 2:5)
 {
-  dirsave=paste0('/Users/yeyusong/Desktop/德国工作 project/Cell-matrix/pics/ana/',all_file[read])
+  dirsave=paste0('path/',all_file[read])
   setwd(dirsave) 
   
   record_cell_batch=read.table ('record_cell.csv',header=F,check.names=FALSE,sep=",")
@@ -820,7 +820,7 @@ simu_heal_std=c(10,TL_successunmber_cell_sd-Total_death_cell_sd)
 
 scale_factor=1
 
-dir='/Users/yeyusong/Desktop/德国工作 project/Cell-matrix/pics/ana'
+dir='path'
 setwd(dir) 
 
 
@@ -873,7 +873,7 @@ while (!is.null(dev.list()))  dev.off()
 
 #create movie
 
-dir='/Users/yeyusong/Desktop/德国工作 project/Cell-matrix/pics/ana'
+dir='path'
 setwd(dir) 
 
 
@@ -1062,7 +1062,7 @@ for(movieperh in 0:72)
 
 
 
-dir='/Users/yeyusong/Desktop/德国工作 project/Cell-matrix/pics/ana'
+dir='path'
 setwd(dir) 
 record_cell=read.table ('record_cell.csv',header=F,check.names=FALSE,sep=",")
 record_matrix=read.table ('record_matrix.csv',header=F,check.names=FALSE,sep=",")
@@ -1325,7 +1325,7 @@ plot(x_test,y_test,xlim=c(0,100),ylim=c(0,100))
 
 
 
-dir='/Users/yeyusong/Desktop/德国工作 project/Cell-matrix/pics/ana/S=1'
+dir='path/S=1'
 setwd(dir)
 
 lattice_cell=read.table ('cutting_cell.csv',header=F,check.names=FALSE,sep=",")
@@ -1333,13 +1333,13 @@ lattice_matrix=read.table ('cutting_matrix.csv',header=F,check.names=FALSE,sep="
 lattice_deathcell=read.table ('cutting_death.csv',header=F,check.names=FALSE,sep=",")
 lattice_agar=read.table ('cutting_agar.csv',header=F,check.names=FALSE,sep=",")
 
-dir='/Users/yeyusong/Desktop/德国工作 project/Cell-matrix/pics/ana'
+dir='path'
 setwd(dir) 
 all_file=list.files()
 for(read in 2:5)
 {
   
-  dirsave=paste0('/Users/yeyusong/Desktop/德国工作 project/Cell-matrix/pics/ana/',all_file[read])
+  dirsave=paste0('path/',all_file[read])
   setwd(dirsave) 
   lattice_cell=lattice_cell+read.table ('cutting_cell.csv',header=F,check.names=FALSE,sep=",")
   lattice_matrix=lattice_matrix+read.table ('cutting_matrix.csv',header=F,check.names=FALSE,sep=",")
@@ -1354,7 +1354,7 @@ lattice_deathcell=lattice_deathcell/5
 lattice_agar=lattice_agar/5
 
 
-dir='/Users/yeyusong/Desktop/德国工作 project/Cell-matrix/pics/ana'
+dir='path'
 setwd(dir)
 
 
@@ -1686,7 +1686,7 @@ while (!is.null(dev.list()))  dev.off()
 
 
 #diameters
-dir='/Users/yeyusong/Desktop/德国工作 project/Cell-matrix/pics/ana/S=1'
+dir='path/S=1'
 setwd(dir)
 
 record_cell=read.table ('record_cell.csv',header=F,check.names=FALSE,sep=",")
@@ -1973,14 +1973,14 @@ while (!is.null(dev.list()))  dev.off()
 
 #diameter with errorbar
 
-dir='/Users/yeyusong/Desktop/德国工作 project/Cell-matrix/pics/ana'
+dir='path'
 setwd(dir) 
 all_file=list.files()
 for(read in 2:5)
 {
   diameter_add=vector()
   
-  dirsave=paste0('/Users/yeyusong/Desktop/德国工作 project/Cell-matrix/pics/ana/',all_file[read])
+  dirsave=paste0('path/',all_file[read])
   setwd(dirsave) 
   for(movieperh in 1:72)
   {
@@ -2089,7 +2089,7 @@ for(read in 2:5)
   diameters=rbind(diameters,diameter_add)
 }
 
-dir='/Users/yeyusong/Desktop/德国工作 project/Cell-matrix/pics/ana'
+dir='path'
 setwd(dir) 
 
 diameters_sd=vector()
